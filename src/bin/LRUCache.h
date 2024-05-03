@@ -4,17 +4,18 @@
 class LRUCache : public Cache {
 public:
   LRUCache() = default;
-  LRUCache(int capacity) {
-    head = nullptr;
-    tail = nullptr;
+  LRUCache(int capacity) : m_nodes(0), m_index(0) {
     cp = capacity;
-    index = 0;
-  }
+    tail = nullptr;
+    head = nullptr;
+  };
 
   void set(int key, int value) override;
   int get(int key) override;
 
 protected:
-  int index;
-  std::vector<std::pair<int, Node *>> nodes;
+  std::vector<std::pair<int, Node *>> m_nodes;
+
+private:
+  int m_index;
 };

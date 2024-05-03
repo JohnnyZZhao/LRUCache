@@ -16,7 +16,7 @@ void LRUCache::set(int key, int value) {
     // Not found, insert new key and value
     auto newNode = new Node(key, value);
     mp[key] = newNode;
-    index++;
+    m_index++;
 
     if (head == NULL) {
       // First node, Initialize
@@ -27,12 +27,12 @@ void LRUCache::set(int key, int value) {
       head->prev = newNode;
       head = newNode;
     }
-    if (index > cp) {
+    if (m_index > cp) {
 
       // overflow, discard the last
       mp.erase(tail->key);
       tail = tail->prev;
-      index = cp;
+      m_index = cp;
     }
   } else {
     // Found,
@@ -52,10 +52,10 @@ void LRUCache::set(int key, int value) {
     }
   }
 
-  while (nodes.size() > cp) {
+  while (m_nodes.size() > cp) {
     std::vector<std::pair<int, Node *>> nodesTemp(
-        std::next(nodes.begin()), nodes.end()); // What can be wrong?
-    nodes = nodesTemp;
+        std::next(m_nodes.begin()), m_nodes.end()); // What can be wrong?
+    m_nodes = nodesTemp;
   }
 }
 
