@@ -18,7 +18,7 @@ add_executable(LRU_Test LRU_test.cpp)
 target_include_directories(LRU_Test PRIVATE ../bin)
 
 # Link the library
-target_link_libraries(LRU_Test GTest::gtest_main)
+target_link_libraries(LRU_Test LRUCache GTest::gtest_main)
 
 include(GoogleTest)
 gtest_discover_tests(LRU_Test)
