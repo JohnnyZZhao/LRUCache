@@ -52,11 +52,12 @@ void LRUCache::set(int key, int value) {
     }
   }
 
-  while (m_nodes.size() > cp) {
-    std::vector<std::pair<int, Node *>> nodesTemp(
-        std::next(m_nodes.begin()), m_nodes.end()); // What can be wrong?
-    m_nodes = nodesTemp;
-  }
+  /// Debugging
+  // while (m_nodes.size() > cp) {
+  //   std::vector<std::pair<int, Node *>> nodesTemp(
+  //       std::next(m_nodes.begin()), m_nodes.end()); // What can be wrong?
+  //   m_nodes = nodesTemp;
+  // }
 }
 
 int LRUCache::get(int key) {
