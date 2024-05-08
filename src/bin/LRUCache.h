@@ -1,29 +1,32 @@
 #include "Cache.h"
 #include <vector>
 
-class LRUCache : public Cache {
+
+template <typename K = int, typename V = int>
+class LRUCache : public Cache<K, V> {
 public:
   LRUCache() = delete;
   LRUCache(int capacity) : m_nodes(0), m_index(0) {
-    cp = capacity;
-    tail = nullptr;
-    head = nullptr;
+    Cache<K, V>::cp = capacity;
+    Cache<K, V>::tail = nullptr;
+    Cache<K, V>::head = nullptr;
   };
 
   /// @brief Add the pair of key and value to the cache, if key already exists
   /// then update its value
   /// @param key
   /// @param value
-  void set(int key, int value) override;
+  void set(K key, V value) override;
 
   /// @brief Get the value of the key
   /// @param key
-  int get(int key) override;
-
+  V get(K key) override;
 
 protected:
-  std::vector<std::pair<int, Node *>> m_nodes;
+  std::vector<std::pair<int, Node<K, V> *>> m_nodes;
 
 private:
   int m_index;
 };
+
+extern template class LRUCache<int, int>;

@@ -10,29 +10,30 @@
 
 using namespace std;
 
-void LRUCache::set(int key, int value) {
-  auto found = mp.find(key);
-  if (found == mp.end()) {
+
+template <typename K, typename V>
+void LRUCache<K, V>::set(K key, V value) {
+  auto found = Cache<K, V>::mp.find(key);
+  if (found == Cache<K, V>::mp.end()) {
     // Not found, insert new key and value
     auto newNode = new Node(key, value);
-    mp[key] = newNode;
+    Cache<K, V>::mp[key] = newNode;
     m_index++;
 
-    if (head == NULL) {
+    if (Cache<K, V>::head == nullptr) {
       // First node, Initialize
-      head = newNode;
-      tail = newNode;
+      Cache<K, V>::head = newNode;
+      Cache<K, V>::tail = newNode;
     } else {
-      newNode->next = head;
-      head->prev = newNode;
-      head = newNode;
+      newNode->next = Cache<K, V>::head;
+      Cache<K, V>::head->prev = newNode;
+      Cache<K, V>::head = newNode;
     }
-    if (m_index > cp) {
-
+    if (m_index > Cache<K, V>::cp) {
       // overflow, discard the last
-      mp.erase(tail->key);
-      tail = tail->prev;
-      m_index = cp;
+      Cache<K, V>::mp.erase(Cache<K, V>::tail->key);
+      Cache<K, V>::tail = Cache<K, V>::tail->prev;
+      m_index = Cache<K, V>::cp;
     }
   } else {
     // Found,
@@ -40,15 +41,15 @@ void LRUCache::set(int key, int value) {
     // update the key's value
     foundNode->value = value;
 
-    if (foundNode == tail) {
+    if (foundNode == Cache<K, V>::tail) {
       // update tail
-      tail = foundNode->prev;
+      Cache<K, V>::tail = foundNode->prev;
     }
-    if (foundNode != head) {
+    if (foundNode != Cache<K, V>::head) {
       // replace head by found Node
-      foundNode->next = head;
-      head->prev = foundNode;
-      head = foundNode;
+      foundNode->next = Cache<K, V>::head;
+      Cache<K, V>::head->prev = foundNode;
+      Cache<K, V>::head = foundNode;
     }
   }
 
@@ -60,25 +61,28 @@ void LRUCache::set(int key, int value) {
   // }
 }
 
-int LRUCache::get(int key) {
-  auto found = mp.find(key);
-  if (found == mp.end()) { // Not found
+template<typename K, typename V>
+V LRUCache<K, V>::get(K key) {
+  auto found = Cache<K, V>::mp.find(key);
+  if (found == Cache<K, V>::mp.end()) { // Not found
     return -1;
   } else {
     auto foundNode = found->second;
 
-    if (foundNode == tail) {
+    if (foundNode == Cache<K, V>::tail) {
       // update tail
-      tail = foundNode->prev;
+      Cache<K, V>::tail = foundNode->prev;
       foundNode->prev = nullptr;
     }
-    if (foundNode != head) {
+    if (foundNode != Cache<K, V>::head) {
       // replace head by found Node
-      foundNode->next = head;
-      head->prev = foundNode;
-      head = foundNode;
+      foundNode->next = Cache<K, V>::head;
+      Cache<K, V>::head->prev = foundNode;
+      Cache<K, V>::head = foundNode;
     }
 
     return foundNode->value;
   }
 }
+
+template class LRUCache<int, int>;

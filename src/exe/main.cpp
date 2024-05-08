@@ -11,7 +11,7 @@ int main() {
 
   cin >> n >> capacity;
 
-  LRUCache lruCahce(capacity);
+  LRUCache<int, int> lruCahce(capacity);
 
   for (i = 0; i < n; i++) {
     cout << "--------------------------------\n";
