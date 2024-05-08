@@ -30,3 +30,4 @@ private:
 };
 
 extern template class LRUCache<int, int>;
+extern template class LRUCache<int, float>;

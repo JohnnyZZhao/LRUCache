@@ -86,3 +86,4 @@ V LRUCache<K, V>::get(K key) {
 }
 
 template class LRUCache<int, int>;
+template class LRUCache<int, float>;

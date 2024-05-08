@@ -46,3 +46,18 @@ TEST_F(LRUCacheTestFixture, GivenCacheWithSizeTwo_Overflow_GetOldKeyReturnsMinus
     EXPECT_EQ(-1, cache.get(2));
     EXPECT_EQ(-1, cache.get(3));
 }
+
+TEST_F(LRUCacheTestFixture, GivenCacheWithSizeTwo_SetAndGetTypeFloat_ReturnValues)
+{
+    LRUCache<int, float> cache(2);
+    cache.set(1, 1.0);
+    cache.set(2, 2.0);
+
+    EXPECT_EQ(1.0, cache.get(1));
+    EXPECT_EQ(2.0, cache.get(2));
+
+    cache.set(1, 3.0);
+
+    EXPECT_EQ(3.0, cache.get(1));
+    EXPECT_EQ(-1, cache.get(4));
+}
