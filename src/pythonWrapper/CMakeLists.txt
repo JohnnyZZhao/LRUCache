@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)  # Ensure FetchContent is available
-project(lruWrapper)
+project(lruBind)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -9,12 +9,12 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(pybind11)
 
-find_package(Python 3.11 COMPONENTS Interpreter Development REQUIRED)
+find_package(Python 3.8 COMPONENTS Interpreter Development REQUIRED)
 
 # Buid Python module
-pybind11_add_module(lruWrapper LRUWrapper.cpp)
+pybind11_add_module(lruBind LRUWrapper.cpp)
 
 # Include directories
-target_include_directories(lruWrapper PRIVATE ../bin)
+target_include_directories(lruBind PRIVATE ../bin)
 
-target_link_libraries(lruWrapper PRIVATE pybind11::pybind11 LRUCache)
+target_link_libraries(lruBind PRIVATE pybind11::pybind11 LRUCache)
