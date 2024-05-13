@@ -33,5 +33,5 @@ endif()
 if(ENABLE_PYTHON)
 include(${CMAKE_CURRENT_BINARY_DIR}/cmake/CPM.cmake)
 
-add_subdirectory(src/pythonWrapper)
+add_subdirectory(src/pythonBind)
 endif()

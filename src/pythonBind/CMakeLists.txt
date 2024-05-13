@@ -12,7 +12,7 @@ FetchContent_MakeAvailable(pybind11)
 find_package(Python 3.8 COMPONENTS Interpreter Development REQUIRED)
 
 # Buid Python module
-pybind11_add_module(lruBind LRUWrapper.cpp)
+pybind11_add_module(lruBind LRUBind.cpp)
 
 # Include directories
 target_include_directories(lruBind PRIVATE ../bin)
