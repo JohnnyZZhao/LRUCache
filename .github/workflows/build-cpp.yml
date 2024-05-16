@@ -28,10 +28,25 @@ jobs:
       - name: Build project
         run: cmake --build build
 
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: build
+
   test:
     runs-on: ubuntu-20.04
     needs: build
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifacts
+          path: build
+
       - name: Run unit tests
         run: |
          ./src/test/LRU_Test
