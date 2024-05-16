@@ -1,4 +1,4 @@
-name: CMake CI
+name: Build
 
 on:
   push:
@@ -27,3 +27,14 @@ jobs:
 
       - name: Build project
         run: cmake --build build
+
+  test:
+    runs-on: ubuntu-20.04
+    needs: build
+    steps:
+      - name: Run unit tests
+        run: |
+         ./src/test/LRU_Test
+        working-directory: build
+
+  
