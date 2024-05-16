@@ -51,6 +51,6 @@ jobs:
           path: build
 
       - name: Run unit tests
-        run: /home/runner/work/LRUCache/LRUCache/build/src/test/LRU_Test
+        run: sudo /home/runner/work/LRUCache/LRUCache/build/src/test/LRU_Test
 
   
