@@ -50,7 +50,10 @@ jobs:
           name: build-artifacts
           path: build
 
+      - name: Fix permissions
+        run: chmod -R +x build
+
       - name: Run unit tests
-        run: sudo /home/runner/work/LRUCache/LRUCache/build/src/test/LRU_Test
+        run: /home/runner/work/LRUCache/LRUCache/build/src/test/LRU_Test
 
   
