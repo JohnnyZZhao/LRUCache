@@ -1,0 +1,59 @@
+name: Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up CMake
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake=3.16.*
+
+      - name: Create build directory
+        run: mkdir -p build
+
+      - name: Run CMake
+        run: cmake -DENABLE_UT=TRUE -S . -B build
+
+      - name: Build project
+        run: cmake --build build
+
+      - name: Run UT
+        run: /home/runner/work/LRUCache/LRUCache/build/src/test/LRU_Test
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: build
+
+  test:
+    runs-on: ubuntu-20.04
+    needs: build
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifacts
+          path: build
+
+      - name: Fix permissions
+        run: chmod -R +x build
+
+      - name: Run unit tests
+        run: /home/runner/work/LRUCache/LRUCache/build/src/test/LRU_Test
+
+  
